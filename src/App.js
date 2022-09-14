@@ -5,6 +5,7 @@ import Loading from "./components/Loading";
 import EndMessage from "./components/EndMessage";
 
 function App() {
+  const API_KEY = process.env.REACT_APP_API_KEY;
   const [items, setItems] = useState([]);
   const [hasMore, sethasMore] = useState(true);
   const [page, setpage] = useState(2);
@@ -13,7 +14,7 @@ function App() {
   useEffect(() => {
     const getImages = async () => {
       const res = await fetch(
-        /* unsplash api 요청 url */
+        `https://api.unsplash.com/photos/?client_id=${API_KEY}&per_page=5`
       );
       const data = await res.json();
       setItems(data);
@@ -24,7 +25,7 @@ function App() {
   // 페이지 바닥에 닿았을 때 실행되는 함수
   const fetchImages = async () => {
     const res = await fetch(
-      /* unsplash api 요청 url */
+      `https://api.unsplash.com/photos/?client_id=${API_KEY}&page=${page}&per_page=5`
     );
     const data = await res.json();
     return data;
